@@ -62,7 +62,7 @@ namespace PassGenLib
             this.PlainTextValue = this.GenerateRandomPassword(this.length);
         }
 
-        public string AllowedCharacters => "AaBbCcDdEeFfGgHhIiKkJjLlMmNnOoPpQqRrSsTtUuVvWwXxYyZ0123456789!£$%&#@<([{|}])>?^*'";
+        public string AllowedCharacters => "AaBbCcDdEeFfGgHhIiKkJjLlMmNnOoPpQqRrSsTtUuVvWwXxYyZ0123456789!£$%&#@<([{|}])>?^*';:-_";
 
         public string PlainTextValue { get; internal set; }
     }
