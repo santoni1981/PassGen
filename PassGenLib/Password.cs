@@ -1,24 +1,46 @@
 ﻿using System;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PassGenLib
 {
     public class Password
     {
-        private uint length;
+        private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
+        private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
+        private const string Numbers = "0123456789";
+        private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_";
+        private PasswordOptions passwordOptions;
 
-        public Password() : this(16u)
+        [Flags]
+        public enum PasswordOptions
+        {
+            LowercaseLetters = 1,
+            UppercaseLetters = 2,
+            AllLetters = (LowercaseLetters | UppercaseLetters),
+            Numbers = 4,
+            Symbols = 8,
+            AllLettersAndNumbers = (AllLetters | Numbers),
+            AllLettersAndSymbols = (AllLetters | Symbols),
+            NumbersAndSymbols = (Numbers | Symbols),
+            All = (AllLetters | Numbers | Symbols)
+        }
+
+        public Password() : this(16u, PasswordOptions.All)
         {
         }
 
-        public Password(uint length)
+        public Password(uint length) : this(length, PasswordOptions.All)
         {
-            this.length = length;
+        }
+
+        public Password(uint length, PasswordOptions passwordOptions)
+        {
+            this.Length = length;
+            this.passwordOptions = passwordOptions;
             this.NewPassword();
         }
 
-        private string GenerateRandomPassword(uint length)
+        private string GenerateRandomPassword(uint length, PasswordOptions options)
         {
             // This is an internal method to shuffle the words inside a text.
             static string ShuffleWords(string text)
@@ -44,25 +66,55 @@ namespace PassGenLib
                 return string.Empty;
             }
 
-            var allowedCharacters = ShuffleWords(this.AllowedCharacters);
+            // Get the allowed characters to generate the password...
+            this.AllowedCharacters = this.GetAllowedCharacters(options);
+            // ...and shuffle the allowed characters string.
+            var allowedCharactersShuffled = ShuffleWords(this.AllowedCharacters);
+
             var sb = new StringBuilder();
             var r = new Random();
 
             for (var ix = 0u; ix < length; ix++)
             {
-                var ch = allowedCharacters[r.Next(allowedCharacters.Length)];
+                var ch = allowedCharactersShuffled[r.Next(allowedCharactersShuffled.Length)];
                 sb.Append(ch);
             }
 
             return sb.ToString();
         }
 
-        public void NewPassword()
+        private string GetAllowedCharacters(PasswordOptions options)
         {
-            this.PlainTextValue = this.GenerateRandomPassword(this.length);
+            var ac = new StringBuilder();
+
+            if ((options & PasswordOptions.LowercaseLetters) == PasswordOptions.LowercaseLetters)
+            {
+                ac.Append(LowercaseLetters);
+            }
+
+            if ((options & PasswordOptions.UppercaseLetters) == PasswordOptions.UppercaseLetters)
+            {
+                ac.Append(UppercaseLetters);
+            }
+
+            if ((options & PasswordOptions.Numbers) == PasswordOptions.Numbers)
+            {
+                ac.Append(Numbers);
+            }
+
+            if ((options & PasswordOptions.Symbols) == PasswordOptions.Symbols)
+            {
+                ac.Append(Symbols);
+            }
+
+            return ac.ToString();
         }
 
-        public string AllowedCharacters => "AaBbCcDdEeFfGgHhIiKkJjLlMmNnOoPpQqRrSsTtUuVvWwXxYyZ0123456789!£$%&#@<([{|}])>?^*';:-_";
+        public void NewPassword() => this.PlainTextValue = this.GenerateRandomPassword(this.Length, this.passwordOptions);
+
+        public string AllowedCharacters { get; private set; }
+
+        public uint Length { get; internal set; }
 
         public string PlainTextValue { get; internal set; }
     }
