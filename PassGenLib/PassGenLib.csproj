@@ -8,4 +8,8 @@
     <Copyright />
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="SimplePasswordEncrypterExtension.cs" />
+  </ItemGroup>
+
 </Project>

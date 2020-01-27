@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PassGenLib;
+using Santoni1981.PassGenLib;
 using System.Text.RegularExpressions;
 
-namespace PassGenLibTest
+namespace Santoni1981.PassGenLibTest
 {
     [TestClass]
     public class PasswordTests

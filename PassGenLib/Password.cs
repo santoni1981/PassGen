@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace PassGenLib
+namespace Santoni1981.PassGenLib
 {
     public class Password
     {
