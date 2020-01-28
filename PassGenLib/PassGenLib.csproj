@@ -6,6 +6,7 @@
     <Company>santoni1981</Company>
     <Description>Simple library to generate random passwords.</Description>
     <Copyright />
+    <RootNamespace>Santoni1981.PassGenLib</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
