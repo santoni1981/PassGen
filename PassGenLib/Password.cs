@@ -120,9 +120,6 @@ namespace Santoni1981.PassGenLib
 
         public string Text { get; internal set; }
 
-        public override string ToString()
-        {
-            return this.Text;
-        }
+        public override string ToString() => this.Text;
     }
 }
