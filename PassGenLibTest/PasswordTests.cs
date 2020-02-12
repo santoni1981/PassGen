@@ -7,14 +7,14 @@ namespace Santoni1981.PassGenLibTest
     [TestClass]
     public class PasswordTests
     {
-        private const uint total = 100000;
+        private const uint TotalNumberOfPasswordsForTest = 100000;
 
         [TestMethod]
         public void GenerateRandomPasswordsWithAllCharacters()
         {
             var password = new Password();
 
-            for (int ix = 0; ix < total; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(16));
@@ -27,7 +27,7 @@ namespace Santoni1981.PassGenLibTest
             var password = new Password(32, Password.PasswordOptions.Numbers);
             var regex = new Regex("[^0-9]");
 
-            for (int ix = 0; ix < total; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(32));
@@ -41,7 +41,7 @@ namespace Santoni1981.PassGenLibTest
             var password = new Password(32, Password.PasswordOptions.AllLetters);
             var regex = new Regex("[^A-Za-z]");
 
-            for (int ix = 0; ix < total; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(32));
@@ -55,7 +55,7 @@ namespace Santoni1981.PassGenLibTest
             var password = new Password(32, Password.PasswordOptions.Symbols);
             var regex = new Regex("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_]");
 
-            for (int ix = 0; ix < total; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(32));
