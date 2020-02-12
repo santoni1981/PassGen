@@ -7,6 +7,7 @@
     <Description>Simple library to generate random passwords.</Description>
     <Copyright />
     <RootNamespace>Santoni1981.PassGenLib</RootNamespace>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
