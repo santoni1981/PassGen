@@ -25,11 +25,13 @@ namespace Santoni1981.PassGenLib
             All = (AllLetters | Numbers | Symbols)
         }
 
-        public Password() : this(16u, PasswordOptions.All)
+        public Password()
+            : this(16u, PasswordOptions.All)
         {
         }
 
-        public Password(uint length) : this(length, PasswordOptions.All)
+        public Password(uint length)
+            : this(length, PasswordOptions.All)
         {
         }
 
@@ -117,5 +119,10 @@ namespace Santoni1981.PassGenLib
         public uint Length { get; internal set; }
 
         public string Text { get; internal set; }
+
+        public override string ToString()
+        {
+            return this.Text;
+        }
     }
 }
