@@ -110,12 +110,12 @@ namespace Santoni1981.PassGenLib
             return ac.ToString();
         }
 
-        public void NewPassword() => this.PlainTextValue = this.GenerateRandomPassword(this.Length, this.passwordOptions);
+        public void NewPassword() => this.Text = this.GenerateRandomPassword(this.Length, this.passwordOptions);
 
         public string AllowedCharacters { get; private set; }
 
         public uint Length { get; internal set; }
 
-        public string PlainTextValue { get; internal set; }
+        public string Text { get; internal set; }
     }
 }
