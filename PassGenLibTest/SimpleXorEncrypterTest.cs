@@ -30,5 +30,16 @@ namespace PassGenLibTest
             var result = SimpleXorEncrypter.Decrypt(this.EncryptedMessage, this.Key);
             Assert.AreEqual(result, this.PlainTextMessage);
         }
+
+        [TestMethod]
+        public void EncryptAndDecryptAGeneratedPassword()
+        {
+            var randomPassword = new Password(1024).Text;
+            var randomKey = new Password(1024).Text;
+            var encrypted = SimpleXorEncrypter.Encrypt(randomPassword, randomKey);
+            var plainText = SimpleXorEncrypter.Decrypt(encrypted, randomKey);
+
+            Assert.AreEqual(randomPassword, plainText);
+        }
     }
 }
