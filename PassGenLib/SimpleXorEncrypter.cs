@@ -1,6 +1,6 @@
 ﻿namespace Santoni1981.PassGenLib
 {
-    public class SimpleXorEncrypter
+    public static class SimpleXorEncrypter
     {
         public static byte[] Encrypt(string plainText, string key)
         {
