@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Santoni1981.PassGenLib;
 
-namespace PassGenLibTest
+namespace Santoni1981.PassGenLibTest
 {
     [TestClass]
     public class SimpleXorEncrypterTest
