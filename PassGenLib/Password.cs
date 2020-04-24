@@ -8,7 +8,7 @@ namespace Santoni1981.PassGenLib
         private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
         private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
         private const string Numbers = "0123456789";
-        private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\";
+        private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\.,";
         private PasswordOptions passwordOptions;
 
         [Flags]
