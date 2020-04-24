@@ -14,7 +14,7 @@ namespace Santoni1981.PassGenLibTest
         {
             var password = new Password();
 
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(16));
@@ -27,7 +27,7 @@ namespace Santoni1981.PassGenLibTest
             var password = new Password(32, Password.PasswordOptions.Numbers);
             var regex = new Regex("[^0-9]");
 
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(32));
@@ -41,7 +41,7 @@ namespace Santoni1981.PassGenLibTest
             var password = new Password(32, Password.PasswordOptions.AllLetters);
             var regex = new Regex("[^A-Za-z]");
 
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(32));
@@ -53,9 +53,9 @@ namespace Santoni1981.PassGenLibTest
         public void GenerateRandomPasswordsWithOnlySymbols()
         {
             var password = new Password(32, Password.PasswordOptions.Symbols);
-            var regex = new Regex("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_]");
+            var regex = new Regex("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_+\\\\/]");
 
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.Text.Length.Equals(32));
