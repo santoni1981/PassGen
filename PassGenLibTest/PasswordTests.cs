@@ -17,7 +17,7 @@ namespace Santoni1981.PassGenLibTest
             for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
-                Assert.IsTrue(password.Text.Length.Equals(16));
+                Assert.IsTrue(password.PlainText.Length.Equals(16));
             }
         }
 
@@ -30,8 +30,8 @@ namespace Santoni1981.PassGenLibTest
             for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
-                Assert.IsTrue(password.Text.Length.Equals(32));
-                Assert.IsFalse(regex.IsMatch(password.Text));
+                Assert.IsTrue(password.PlainText.Length.Equals(32));
+                Assert.IsFalse(regex.IsMatch(password.PlainText));
             }
         }
 
@@ -44,8 +44,8 @@ namespace Santoni1981.PassGenLibTest
             for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
-                Assert.IsTrue(password.Text.Length.Equals(32));
-                Assert.IsFalse(regex.IsMatch(password.Text));
+                Assert.IsTrue(password.PlainText.Length.Equals(32));
+                Assert.IsFalse(regex.IsMatch(password.PlainText));
             }
         }
 
@@ -58,8 +58,8 @@ namespace Santoni1981.PassGenLibTest
             for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
-                Assert.IsTrue(password.Text.Length.Equals(32));
-                Assert.IsFalse(regex.IsMatch(password.Text));
+                Assert.IsTrue(password.PlainText.Length.Equals(32));
+                Assert.IsFalse(regex.IsMatch(password.PlainText));
             }
         }
     }

@@ -90,36 +90,28 @@ namespace Santoni1981.PassGenLib
             var ac = new StringBuilder();
 
             if ((options & PasswordOptions.LowercaseLetters) == PasswordOptions.LowercaseLetters)
-            {
                 ac.Append(LowercaseLetters);
-            }
 
             if ((options & PasswordOptions.UppercaseLetters) == PasswordOptions.UppercaseLetters)
-            {
                 ac.Append(UppercaseLetters);
-            }
 
             if ((options & PasswordOptions.Numbers) == PasswordOptions.Numbers)
-            {
                 ac.Append(Numbers);
-            }
 
             if ((options & PasswordOptions.Symbols) == PasswordOptions.Symbols)
-            {
                 ac.Append(Symbols);
-            }
 
             return ac.ToString();
         }
 
-        public void NewPassword() => this.Text = this.GenerateRandomPassword(this.Length, this.passwordOptions);
+        public void NewPassword() => this.PlainText = this.GenerateRandomPassword(this.Length, this.passwordOptions);
 
         public string AllowedCharacters { get; private set; }
 
         public uint Length { get; internal set; }
 
-        public string Text { get; internal set; }
+        public string PlainText { get; internal set; }
 
-        public override string ToString() => this.Text;
+        public override string ToString() => this.PlainText;
     }
 }
