@@ -70,13 +70,13 @@ namespace Santoni1981.PassGenLib
             // This is an internal method to shuffle the words inside a text.
             static string ShuffleWords(string text)
             {
-                var sb = new StringBuilder(text);
-                var retStr = new StringBuilder();
-                var r = new Random();
+                StringBuilder sb = new StringBuilder(text);
+                StringBuilder retStr = new StringBuilder();
+                Random r = new Random();
 
                 while (sb.Length > 0)
                 {
-                    var pos = r.Next(sb.ToString().Length);
+                    int pos = r.Next(sb.ToString().Length);
                     retStr.Append(sb[pos]);
                     sb.Remove(pos, 1);
                 }
@@ -94,14 +94,14 @@ namespace Santoni1981.PassGenLib
             // Get the allowed characters to generate the password...
             this.AllowedCharacters = this.GetAllowedCharacters(options);
             // ...and shuffle the allowed characters string.
-            var allowedCharactersShuffled = ShuffleWords(this.AllowedCharacters);
+            string allowedCharactersShuffled = ShuffleWords(this.AllowedCharacters);
 
-            var sb = new StringBuilder();
-            var r = new Random();
+            StringBuilder sb = new StringBuilder();
+            Random r = new Random();
 
-            for (var ix = 0u; ix < length; ix++)
+            for (uint ix = 0u; ix < length; ix++)
             {
-                var ch = allowedCharactersShuffled[r.Next(allowedCharactersShuffled.Length)];
+                char ch = allowedCharactersShuffled[r.Next(allowedCharactersShuffled.Length)];
                 sb.Append(ch);
             }
 
@@ -110,7 +110,7 @@ namespace Santoni1981.PassGenLib
 
         private string GetAllowedCharacters(PasswordOptions options)
         {
-            var ac = new StringBuilder();
+            StringBuilder ac = new StringBuilder();
 
             if ((options & PasswordOptions.LowercaseLetters) == PasswordOptions.LowercaseLetters)
                 ac.Append(LowercaseLetters);
