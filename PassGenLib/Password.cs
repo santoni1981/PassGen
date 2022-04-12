@@ -111,16 +111,24 @@ namespace Santoni1981.PassGenLib
             StringBuilder ac = new StringBuilder();
 
             if ((options & PasswordOptions.LowercaseLetters) == PasswordOptions.LowercaseLetters)
+            {
                 ac.Append(LowercaseLetters);
+            }
 
             if ((options & PasswordOptions.UppercaseLetters) == PasswordOptions.UppercaseLetters)
+            {
                 ac.Append(UppercaseLetters);
+            }
 
             if ((options & PasswordOptions.Numbers) == PasswordOptions.Numbers)
+            {
                 ac.Append(Numbers);
+            }
 
             if ((options & PasswordOptions.Symbols) == PasswordOptions.Symbols)
+            {
                 ac.Append(Symbols);
+            }
 
             return ac.ToString();
         }

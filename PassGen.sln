@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassGenLib", "PassGenLib\PassGenLib.csproj", "{2617A6F0-F2BA-42E7-83A0-4C230F675DF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassGenLib", "PassGenLib\PassGenLib.csproj", "{2617A6F0-F2BA-42E7-83A0-4C230F675DF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassGenLibTest", "PassGenLibTest\PassGenLibTest.csproj", "{E8679887-2213-4FFB-8E28-C6E23F16ABF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassGenLibTest", "PassGenLibTest\PassGenLibTest.csproj", "{E8679887-2213-4FFB-8E28-C6E23F16ABF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{690AA6F2-BE96-4926-B1A8-E7A24EB825D8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2617A6F0-F2BA-42E7-83A0-4C230F675DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +46,11 @@ Global
 		{E8679887-2213-4FFB-8E28-C6E23F16ABF4}.Release|x64.Build.0 = Release|Any CPU
 		{E8679887-2213-4FFB-8E28-C6E23F16ABF4}.Release|x86.ActiveCfg = Release|Any CPU
 		{E8679887-2213-4FFB-8E28-C6E23F16ABF4}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA34EF04-EE9B-4AC3-A16D-8114F81C448F}
 	EndGlobalSection
 EndGlobal
