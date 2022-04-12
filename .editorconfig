@@ -175,6 +175,7 @@ csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true:si
 
 #### Naming styles ####
 [*.{cs,vb}]
+csharp_style_implicit_object_creation_when_type_is_apparent = false
 
 # Naming rules
 

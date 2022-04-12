@@ -106,7 +106,7 @@ namespace Santoni1981.PassGenLib
             return sb.ToString();
         }
 
-        private string GetAllowedCharacters(PasswordOptions options)
+        private static string GetAllowedCharacters(PasswordOptions options)
         {
             StringBuilder ac = new StringBuilder();
 

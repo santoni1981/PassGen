@@ -31,29 +31,29 @@ namespace Santoni1981.PassGenLibTest
     public class SimpleXorEncrypterTest
     {
         private const string Key = "ThisIsTheKeyUsedToEncodeTheString";
-        private readonly string plainTextMessage = "Hello, World!";
-        private readonly byte[] encryptedMessage = new byte[] { 47, 13, 5, 6, 4, 64, 77, 57, 0, 2, 29, 22, 82 };
+        private readonly string _plainTextMessage = "Hello, World!";
+        private readonly byte[] _encryptedMessage = new byte[] { 47, 13, 5, 6, 4, 64, 77, 57, 0, 2, 29, 22, 82 };
 
         [TestMethod]
         public void EncryptPlainText()
         {
-            byte[] result = SimpleXorEncrypter.Encrypt(plainTextMessage, SimpleXorEncrypterTest.Key);
+            byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, SimpleXorEncrypterTest.Key);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.Length, encryptedMessage.Length);
+            Assert.AreEqual(result.Length, _encryptedMessage.Length);
 
-            for (int ix = 0; ix < encryptedMessage.Length; ++ix)
+            for (int ix = 0; ix < _encryptedMessage.Length; ++ix)
             {
-                Assert.AreEqual(result[ix], encryptedMessage[ix]);
+                Assert.AreEqual(result[ix], _encryptedMessage[ix]);
             }
         }
 
         [TestMethod]
         public void DecryptToPlainText()
         {
-            string result = SimpleXorEncrypter.Decrypt(encryptedMessage, SimpleXorEncrypterTest.Key);
+            string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, SimpleXorEncrypterTest.Key);
 
-            Assert.AreEqual(result, plainTextMessage);
+            Assert.AreEqual(result, _plainTextMessage);
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace Santoni1981.PassGenLibTest
         [TestMethod]
         public void EncryptWithoutKey()
         {
-            byte[] result = SimpleXorEncrypter.Encrypt(plainTextMessage, string.Empty);
+            byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, string.Empty);
 
             Assert.IsNull(result);
         }
@@ -78,7 +78,7 @@ namespace Santoni1981.PassGenLibTest
         [TestMethod]
         public void DecryptWithoutKey()
         {
-            string result = SimpleXorEncrypter.Decrypt(encryptedMessage, string.Empty);
+            string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, string.Empty);
 
             Assert.IsNull(result);
         }
