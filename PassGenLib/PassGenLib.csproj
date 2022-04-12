@@ -1,17 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Marco Santoni</Authors>
     <Company>santoni1981</Company>
     <Description>Simple library to generate random passwords.</Description>
     <Copyright />
     <RootNamespace>Santoni1981.PassGenLib</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="SimplePasswordEncrypterExtension.cs" />
-  </ItemGroup>
-
 </Project>
