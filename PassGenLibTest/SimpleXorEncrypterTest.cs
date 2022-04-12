@@ -37,7 +37,7 @@ namespace Santoni1981.PassGenLibTest
         [TestMethod]
         public void EncryptPlainText()
         {
-            byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, SimpleXorEncrypterTest.Key);
+            byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, Key);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.Length, _encryptedMessage.Length);
@@ -51,7 +51,7 @@ namespace Santoni1981.PassGenLibTest
         [TestMethod]
         public void DecryptToPlainText()
         {
-            string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, SimpleXorEncrypterTest.Key);
+            string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, Key);
 
             Assert.AreEqual(result, _plainTextMessage);
         }

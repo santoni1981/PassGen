@@ -21,9 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Santoni1981.PassGenLib;
 using System.Text.RegularExpressions;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Santoni1981.PassGenLib;
 
 namespace Santoni1981.PassGenLibTest
 {
@@ -37,7 +39,7 @@ namespace Santoni1981.PassGenLibTest
         {
             Password password = new Password();
 
-            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.PlainText.Length.Equals(16));
@@ -50,7 +52,7 @@ namespace Santoni1981.PassGenLibTest
             Password password = new Password(32, Password.PasswordOptions.Numbers);
             Regex regex = new Regex("[^0-9]");
 
-            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.PlainText.Length.Equals(32));
@@ -64,7 +66,7 @@ namespace Santoni1981.PassGenLibTest
             Password password = new Password(32, Password.PasswordOptions.AllLetters);
             Regex regex = new Regex("[^A-Za-z]");
 
-            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.PlainText.Length.Equals(32));
@@ -78,7 +80,7 @@ namespace Santoni1981.PassGenLibTest
             Password password = new Password(32, Password.PasswordOptions.Symbols);
             Regex regex = new Regex("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_+\\\\/\\.,]");
 
-            for (int ix = 0; ix < PasswordTests.TotalNumberOfPasswordsForTest; ix++)
+            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
             {
                 password.NewPassword();
                 Assert.IsTrue(password.PlainText.Length.Equals(32));
