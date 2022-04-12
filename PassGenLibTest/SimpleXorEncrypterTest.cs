@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Santoni1981.PassGenLib;
 
 namespace Santoni1981.PassGenLibTest
@@ -36,23 +37,23 @@ namespace Santoni1981.PassGenLibTest
         [TestMethod]
         public void EncryptPlainText()
         {
-            byte[] result = SimpleXorEncrypter.Encrypt(this.plainTextMessage, SimpleXorEncrypterTest.Key);
+            byte[] result = SimpleXorEncrypter.Encrypt(plainTextMessage, SimpleXorEncrypterTest.Key);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.Length, this.encryptedMessage.Length);
+            Assert.AreEqual(result.Length, encryptedMessage.Length);
 
-            for (int ix = 0; ix < this.encryptedMessage.Length; ++ix)
+            for (int ix = 0; ix < encryptedMessage.Length; ++ix)
             {
-                Assert.AreEqual(result[ix], this.encryptedMessage[ix]);
+                Assert.AreEqual(result[ix], encryptedMessage[ix]);
             }
         }
 
         [TestMethod]
         public void DecryptToPlainText()
         {
-            string result = SimpleXorEncrypter.Decrypt(this.encryptedMessage, SimpleXorEncrypterTest.Key);
-            
-            Assert.AreEqual(result, this.plainTextMessage);
+            string result = SimpleXorEncrypter.Decrypt(encryptedMessage, SimpleXorEncrypterTest.Key);
+
+            Assert.AreEqual(result, plainTextMessage);
         }
 
         [TestMethod]
@@ -69,15 +70,15 @@ namespace Santoni1981.PassGenLibTest
         [TestMethod]
         public void EncryptWithoutKey()
         {
-            byte[] result = SimpleXorEncrypter.Encrypt(this.plainTextMessage, string.Empty);
-            
+            byte[] result = SimpleXorEncrypter.Encrypt(plainTextMessage, string.Empty);
+
             Assert.IsNull(result);
         }
 
         [TestMethod]
         public void DecryptWithoutKey()
         {
-            string result = SimpleXorEncrypter.Decrypt(this.encryptedMessage, string.Empty);
+            string result = SimpleXorEncrypter.Decrypt(encryptedMessage, string.Empty);
 
             Assert.IsNull(result);
         }

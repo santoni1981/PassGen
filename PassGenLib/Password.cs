@@ -32,7 +32,7 @@ namespace Santoni1981.PassGenLib
         private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
         private const string Numbers = "0123456789";
         private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\.,";
-        private PasswordOptions passwordOptions;
+        private readonly PasswordOptions _passwordOptions;
 
         [Flags]
         public enum PasswordOptions
@@ -48,21 +48,19 @@ namespace Santoni1981.PassGenLib
             All = (AllLetters | Numbers | Symbols)
         }
 
-        public Password()
-            : this(16u, PasswordOptions.All)
+        public Password() : this(16u, PasswordOptions.All)
         {
         }
 
-        public Password(uint length)
-            : this(length, PasswordOptions.All)
+        public Password(uint length) : this(length, PasswordOptions.All)
         {
         }
 
         public Password(uint length, PasswordOptions passwordOptions)
         {
-            this.Length = length;
-            this.passwordOptions = passwordOptions;
-            this.NewPassword();
+            Length = length;
+            _passwordOptions = passwordOptions;
+            NewPassword();
         }
 
         private string GenerateRandomPassword(uint length, PasswordOptions options)
@@ -92,9 +90,9 @@ namespace Santoni1981.PassGenLib
             }
 
             // Get the allowed characters to generate the password...
-            this.AllowedCharacters = this.GetAllowedCharacters(options);
+            AllowedCharacters = GetAllowedCharacters(options);
             // ...and shuffle the allowed characters string.
-            string allowedCharactersShuffled = ShuffleWords(this.AllowedCharacters);
+            string allowedCharactersShuffled = ShuffleWords(AllowedCharacters);
 
             StringBuilder sb = new StringBuilder();
             Random r = new Random();
@@ -127,7 +125,7 @@ namespace Santoni1981.PassGenLib
             return ac.ToString();
         }
 
-        public void NewPassword() => this.PlainText = this.GenerateRandomPassword(this.Length, this.passwordOptions);
+        public void NewPassword() => PlainText = GenerateRandomPassword(Length, _passwordOptions);
 
         public string AllowedCharacters { get; private set; }
 
@@ -135,6 +133,6 @@ namespace Santoni1981.PassGenLib
 
         public string PlainText { get; internal set; }
 
-        public override string ToString() => this.PlainText;
+        public override string ToString() => PlainText;
     }
 }
