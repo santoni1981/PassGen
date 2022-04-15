@@ -68,18 +68,27 @@ namespace Santoni1981.PassGenLib
             // This is an internal method to shuffle the words inside a text.
             static string ShuffleWords(string text)
             {
-                StringBuilder sb = new StringBuilder(text);
-                StringBuilder retStr = new StringBuilder();
-                Random r = new Random();
+                ArgumentNullException.ThrowIfNull(text, nameof(text));
 
-                while (sb.Length > 0)
+                if (text.Length <= 1)
                 {
-                    int pos = r.Next(sb.ToString().Length);
-                    retStr.Append(sb[pos]);
-                    sb.Remove(pos, 1);
+                    // If the text is empty or contains only one character,
+                    // then there is nothing to shuffle.
+                    return text;
                 }
 
-                return retStr.ToString();
+                StringBuilder inputString = new StringBuilder(text);
+                StringBuilder outputString = new StringBuilder();
+                Random r = new Random();
+
+                while (inputString.Length > 0)
+                {
+                    int pos = r.Next(inputString.ToString().Length);
+                    outputString.Append(inputString[pos]);
+                    inputString.Remove(pos, 1);
+                }
+
+                return outputString.ToString();
             }
 
             if (length == 0)
