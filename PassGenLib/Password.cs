@@ -24,132 +24,131 @@
 using System;
 using System.Text;
 
-namespace Santoni1981.PassGenLib
+namespace Santoni1981.PassGenLib;
+
+public class Password
 {
-    public class Password
+    private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
+    private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
+    private const string Numbers = "0123456789";
+    private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\.,";
+    private readonly PasswordOptions _passwordOptions;
+
+    [Flags]
+    public enum PasswordOptions
     {
-        private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
-        private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
-        private const string Numbers = "0123456789";
-        private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\.,";
-        private readonly PasswordOptions _passwordOptions;
+        LowercaseLetters = 1,
+        UppercaseLetters = 2,
+        AllLetters = (LowercaseLetters | UppercaseLetters),
+        Numbers = 4,
+        Symbols = 8,
+        AllLettersAndNumbers = (AllLetters | Numbers),
+        AllLettersAndSymbols = (AllLetters | Symbols),
+        NumbersAndSymbols = (Numbers | Symbols),
+        All = (AllLetters | Numbers | Symbols)
+    }
 
-        [Flags]
-        public enum PasswordOptions
-        {
-            LowercaseLetters = 1,
-            UppercaseLetters = 2,
-            AllLetters = (LowercaseLetters | UppercaseLetters),
-            Numbers = 4,
-            Symbols = 8,
-            AllLettersAndNumbers = (AllLetters | Numbers),
-            AllLettersAndSymbols = (AllLetters | Symbols),
-            NumbersAndSymbols = (Numbers | Symbols),
-            All = (AllLetters | Numbers | Symbols)
-        }
+    public Password() : this(16u, PasswordOptions.All)
+    {
+    }
 
-        public Password() : this(16u, PasswordOptions.All)
-        {
-        }
+    public Password(uint length) : this(length, PasswordOptions.All)
+    {
+    }
 
-        public Password(uint length) : this(length, PasswordOptions.All)
-        {
-        }
+    public Password(uint length, PasswordOptions passwordOptions)
+    {
+        Length = length;
+        _passwordOptions = passwordOptions;
+        NewPassword();
+    }
 
-        public Password(uint length, PasswordOptions passwordOptions)
+    private string GenerateRandomPassword(uint length, PasswordOptions options)
+    {
+        // This is an internal method to shuffle the words inside a text.
+        static string ShuffleWords(string text)
         {
-            Length = length;
-            _passwordOptions = passwordOptions;
-            NewPassword();
-        }
+            ArgumentNullException.ThrowIfNull(text, nameof(text));
 
-        private string GenerateRandomPassword(uint length, PasswordOptions options)
-        {
-            // This is an internal method to shuffle the words inside a text.
-            static string ShuffleWords(string text)
+            if (text.Length <= 1)
             {
-                ArgumentNullException.ThrowIfNull(text, nameof(text));
-
-                if (text.Length <= 1)
-                {
-                    // If the text is empty or contains only one character,
-                    // then there is nothing to shuffle.
-                    return text;
-                }
-
-                StringBuilder inputString = new StringBuilder(text);
-                StringBuilder outputString = new StringBuilder();
-                Random r = new Random();
-
-                while (inputString.Length > 0)
-                {
-                    int pos = r.Next(inputString.ToString().Length);
-                    outputString.Append(inputString[pos]);
-                    inputString.Remove(pos, 1);
-                }
-
-                return outputString.ToString();
+                // If the text is empty or contains only one character,
+                // then there is nothing to shuffle.
+                return text;
             }
 
-            if (length == 0)
-            {
-                // If the specified length of the password is equal to zero
-                // then return a string empty.
-                return string.Empty;
-            }
-
-            // Get the allowed characters to generate the password...
-            AllowedCharacters = GetAllowedCharacters(options);
-            // ...and shuffle the allowed characters string.
-            string allowedCharactersShuffled = ShuffleWords(AllowedCharacters);
-
-            StringBuilder sb = new StringBuilder();
+            StringBuilder inputString = new StringBuilder(text);
+            StringBuilder outputString = new StringBuilder();
             Random r = new Random();
 
-            for (uint ix = 0u; ix < length; ix++)
+            while (inputString.Length > 0)
             {
-                char ch = allowedCharactersShuffled[r.Next(allowedCharactersShuffled.Length)];
-                sb.Append(ch);
+                int pos = r.Next(inputString.ToString().Length);
+                outputString.Append(inputString[pos]);
+                inputString.Remove(pos, 1);
             }
 
-            return sb.ToString();
+            return outputString.ToString();
         }
 
-        private static string GetAllowedCharacters(PasswordOptions options)
+        if (length == 0)
         {
-            StringBuilder ac = new StringBuilder();
-
-            if ((options & PasswordOptions.LowercaseLetters) == PasswordOptions.LowercaseLetters)
-            {
-                ac.Append(LowercaseLetters);
-            }
-
-            if ((options & PasswordOptions.UppercaseLetters) == PasswordOptions.UppercaseLetters)
-            {
-                ac.Append(UppercaseLetters);
-            }
-
-            if ((options & PasswordOptions.Numbers) == PasswordOptions.Numbers)
-            {
-                ac.Append(Numbers);
-            }
-
-            if ((options & PasswordOptions.Symbols) == PasswordOptions.Symbols)
-            {
-                ac.Append(Symbols);
-            }
-
-            return ac.ToString();
+            // If the specified length of the password is equal to zero
+            // then return a string empty.
+            return string.Empty;
         }
 
-        public void NewPassword() => PlainText = GenerateRandomPassword(Length, _passwordOptions);
+        // Get the allowed characters to generate the password...
+        AllowedCharacters = GetAllowedCharacters(options);
+        // ...and shuffle the allowed characters string.
+        string allowedCharactersShuffled = ShuffleWords(AllowedCharacters);
 
-        public string AllowedCharacters { get; private set; }
+        StringBuilder sb = new StringBuilder();
+        Random r = new Random();
 
-        public uint Length { get; internal set; }
+        for (uint ix = 0u; ix < length; ix++)
+        {
+            char ch = allowedCharactersShuffled[r.Next(allowedCharactersShuffled.Length)];
+            sb.Append(ch);
+        }
 
-        public string PlainText { get; internal set; }
-
-        public override string ToString() => PlainText;
+        return sb.ToString();
     }
+
+    private static string GetAllowedCharacters(PasswordOptions options)
+    {
+        StringBuilder ac = new StringBuilder();
+
+        if ((options & PasswordOptions.LowercaseLetters) == PasswordOptions.LowercaseLetters)
+        {
+            ac.Append(LowercaseLetters);
+        }
+
+        if ((options & PasswordOptions.UppercaseLetters) == PasswordOptions.UppercaseLetters)
+        {
+            ac.Append(UppercaseLetters);
+        }
+
+        if ((options & PasswordOptions.Numbers) == PasswordOptions.Numbers)
+        {
+            ac.Append(Numbers);
+        }
+
+        if ((options & PasswordOptions.Symbols) == PasswordOptions.Symbols)
+        {
+            ac.Append(Symbols);
+        }
+
+        return ac.ToString();
+    }
+
+    public void NewPassword() => PlainText = GenerateRandomPassword(Length, _passwordOptions);
+
+    public string AllowedCharacters { get; private set; }
+
+    public uint Length { get; internal set; }
+
+    public string PlainText { get; internal set; }
+
+    public override string ToString() => PlainText;
 }

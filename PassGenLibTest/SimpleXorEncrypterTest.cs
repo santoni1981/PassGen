@@ -25,62 +25,61 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Santoni1981.PassGenLib;
 
-namespace Santoni1981.PassGenLibTest
+namespace Santoni1981.PassGenLibTest;
+
+[TestClass]
+public class SimpleXorEncrypterTest
 {
-    [TestClass]
-    public class SimpleXorEncrypterTest
+    private const string Key = "ThisIsTheKeyUsedToEncodeTheString";
+    private readonly string _plainTextMessage = "Hello, World!";
+    private readonly byte[] _encryptedMessage = new byte[] { 47, 13, 5, 6, 4, 64, 77, 57, 0, 2, 29, 22, 82 };
+
+    [TestMethod]
+    public void EncryptPlainText()
     {
-        private const string Key = "ThisIsTheKeyUsedToEncodeTheString";
-        private readonly string _plainTextMessage = "Hello, World!";
-        private readonly byte[] _encryptedMessage = new byte[] { 47, 13, 5, 6, 4, 64, 77, 57, 0, 2, 29, 22, 82 };
+        byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, Key);
 
-        [TestMethod]
-        public void EncryptPlainText()
+        Assert.IsNotNull(result);
+        Assert.AreEqual(result.Length, _encryptedMessage.Length);
+
+        for (int ix = 0; ix < _encryptedMessage.Length; ++ix)
         {
-            byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, Key);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(result.Length, _encryptedMessage.Length);
-
-            for (int ix = 0; ix < _encryptedMessage.Length; ++ix)
-            {
-                Assert.AreEqual(result[ix], _encryptedMessage[ix]);
-            }
+            Assert.AreEqual(result[ix], _encryptedMessage[ix]);
         }
+    }
 
-        [TestMethod]
-        public void DecryptToPlainText()
-        {
-            string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, Key);
+    [TestMethod]
+    public void DecryptToPlainText()
+    {
+        string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, Key);
 
-            Assert.AreEqual(result, _plainTextMessage);
-        }
+        Assert.AreEqual(result, _plainTextMessage);
+    }
 
-        [TestMethod]
-        public void EncryptAndDecryptAGeneratedPassword()
-        {
-            string randomPassword = new Password(1024).PlainText;
-            string randomKey = new Password(1024).PlainText;
-            byte[] encrypted = SimpleXorEncrypter.Encrypt(randomPassword, randomKey);
-            string plainText = SimpleXorEncrypter.Decrypt(encrypted, randomKey);
+    [TestMethod]
+    public void EncryptAndDecryptAGeneratedPassword()
+    {
+        string randomPassword = new Password(1024).PlainText;
+        string randomKey = new Password(1024).PlainText;
+        byte[] encrypted = SimpleXorEncrypter.Encrypt(randomPassword, randomKey);
+        string plainText = SimpleXorEncrypter.Decrypt(encrypted, randomKey);
 
-            Assert.AreEqual(randomPassword, plainText);
-        }
+        Assert.AreEqual(randomPassword, plainText);
+    }
 
-        [TestMethod]
-        public void EncryptWithoutKey()
-        {
-            byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, string.Empty);
+    [TestMethod]
+    public void EncryptWithoutKey()
+    {
+        byte[] result = SimpleXorEncrypter.Encrypt(_plainTextMessage, string.Empty);
 
-            Assert.IsNull(result);
-        }
+        Assert.IsNull(result);
+    }
 
-        [TestMethod]
-        public void DecryptWithoutKey()
-        {
-            string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, string.Empty);
+    [TestMethod]
+    public void DecryptWithoutKey()
+    {
+        string result = SimpleXorEncrypter.Decrypt(_encryptedMessage, string.Empty);
 
-            Assert.IsNull(result);
-        }
+        Assert.IsNull(result);
     }
 }

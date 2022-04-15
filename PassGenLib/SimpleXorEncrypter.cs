@@ -21,54 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-namespace Santoni1981.PassGenLib
+namespace Santoni1981.PassGenLib;
+
+public static class SimpleXorEncrypter
 {
-    public static class SimpleXorEncrypter
+    public static byte[] Encrypt(string plainText, string key)
     {
-        public static byte[] Encrypt(string plainText, string key)
+        if (string.IsNullOrEmpty(plainText) || string.IsNullOrEmpty(key))
         {
-            if (string.IsNullOrEmpty(plainText) || string.IsNullOrEmpty(key))
+            return null;
+        }
+
+        int len = plainText.Length;
+        int len_k = key.Length;
+        byte[] encrypted = new byte[len];
+
+        for (int idx_k = 0; idx_k < len_k; idx_k++)
+        {
+            for (int idx = 0; idx < len; idx++)
             {
-                return null;
+                int k = (((byte)key[idx_k] + idx) % 255);
+                encrypted[idx] = (byte)(plainText[idx] ^ k);
             }
-
-            int len = plainText.Length;
-            int len_k = key.Length;
-            byte[] encrypted = new byte[len];
-
-            for (int idx_k = 0; idx_k < len_k; idx_k++)
-            { 
-                for (int idx = 0; idx < len; idx++)
-                {
-                    int k = (((byte)key[idx_k] + idx) % 255);
-                    encrypted[idx] = (byte)(plainText[idx] ^ k);
-                }
-            }
-
-            return encrypted;
         }
 
-        public static string Decrypt(byte[] encryptedText, string key)
+        return encrypted;
+    }
+
+    public static string Decrypt(byte[] encryptedText, string key)
+    {
+        if ((encryptedText == null || encryptedText.Length == 0) || string.IsNullOrEmpty(key))
         {
-            if ((encryptedText == null || encryptedText.Length == 0) || string.IsNullOrEmpty(key))
-            { 
-                return null;
-            }
-
-            int len = encryptedText.Length;
-            int len_k = key.Length;
-            char[] decrypted = new char[len];
-
-            for (int idx_k = 0; idx_k < len_k; idx_k++)
-            { 
-                for (int idx = 0; idx < len; idx++)
-                {
-                    int k = (((byte)key[idx_k] + idx) % 255);
-                    decrypted[idx] = (char)(encryptedText[idx] ^ k);
-                }
-            }
-
-            return new string(decrypted);
+            return null;
         }
+
+        int len = encryptedText.Length;
+        int len_k = key.Length;
+        char[] decrypted = new char[len];
+
+        for (int idx_k = 0; idx_k < len_k; idx_k++)
+        {
+            for (int idx = 0; idx < len; idx++)
+            {
+                int k = (((byte)key[idx_k] + idx) % 255);
+                decrypted[idx] = (char)(encryptedText[idx] ^ k);
+            }
+        }
+
+        return new string(decrypted);
     }
 }

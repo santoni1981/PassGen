@@ -27,65 +27,64 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Santoni1981.PassGenLib;
 
-namespace Santoni1981.PassGenLibTest
+namespace Santoni1981.PassGenLibTest;
+
+[TestClass]
+public class PasswordTests
 {
-    [TestClass]
-    public class PasswordTests
+    private const uint TotalNumberOfPasswordsForTest = 100000;
+
+    [TestMethod]
+    public void GenerateRandomPasswordsWithAllCharacters()
     {
-        private const uint TotalNumberOfPasswordsForTest = 100000;
+        Password password = new Password();
 
-        [TestMethod]
-        public void GenerateRandomPasswordsWithAllCharacters()
+        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {
-            Password password = new Password();
-
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
-            {
-                password.NewPassword();
-                Assert.IsTrue(password.PlainText.Length.Equals(16));
-            }
+            password.NewPassword();
+            Assert.IsTrue(password.PlainText.Length.Equals(16));
         }
+    }
 
-        [TestMethod]
-        public void GenerateRandomPasswordsWithOnlyNumbers()
+    [TestMethod]
+    public void GenerateRandomPasswordsWithOnlyNumbers()
+    {
+        Password password = new Password(32, Password.PasswordOptions.Numbers);
+        Regex regex = new Regex("[^0-9]");
+
+        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {
-            Password password = new Password(32, Password.PasswordOptions.Numbers);
-            Regex regex = new Regex("[^0-9]");
-
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
-            {
-                password.NewPassword();
-                Assert.IsTrue(password.PlainText.Length.Equals(32));
-                Assert.IsFalse(regex.IsMatch(password.PlainText));
-            }
+            password.NewPassword();
+            Assert.IsTrue(password.PlainText.Length.Equals(32));
+            Assert.IsFalse(regex.IsMatch(password.PlainText));
         }
+    }
 
-        [TestMethod]
-        public void GenerateRandomPasswordsWithOnlyLetters()
+    [TestMethod]
+    public void GenerateRandomPasswordsWithOnlyLetters()
+    {
+        Password password = new Password(32, Password.PasswordOptions.AllLetters);
+        Regex regex = new Regex("[^A-Za-z]");
+
+        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {
-            Password password = new Password(32, Password.PasswordOptions.AllLetters);
-            Regex regex = new Regex("[^A-Za-z]");
-
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
-            {
-                password.NewPassword();
-                Assert.IsTrue(password.PlainText.Length.Equals(32));
-                Assert.IsFalse(regex.IsMatch(password.PlainText));
-            }
+            password.NewPassword();
+            Assert.IsTrue(password.PlainText.Length.Equals(32));
+            Assert.IsFalse(regex.IsMatch(password.PlainText));
         }
+    }
 
-        [TestMethod]
-        public void GenerateRandomPasswordsWithOnlySymbols()
+    [TestMethod]
+    public void GenerateRandomPasswordsWithOnlySymbols()
+    {
+        Password password = new Password(32, Password.PasswordOptions.Symbols);
+        Regex regex = new Regex("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_+\\\\/\\.,]");
+
+        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {
-            Password password = new Password(32, Password.PasswordOptions.Symbols);
-            Regex regex = new Regex("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_+\\\\/\\.,]");
-
-            for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
-            {
-                password.NewPassword();
-                Assert.IsTrue(password.PlainText.Length.Equals(32));
-                Assert.IsFalse(regex.IsMatch(password.PlainText));
-            }
+            password.NewPassword();
+            Assert.IsTrue(password.PlainText.Length.Equals(32));
+            Assert.IsFalse(regex.IsMatch(password.PlainText));
         }
     }
 }
