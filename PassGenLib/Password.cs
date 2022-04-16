@@ -48,15 +48,7 @@ public class Password
         All = (AllLetters | Numbers | Symbols)
     }
 
-    public Password() : this(16u, PasswordOptions.All)
-    {
-    }
-
-    public Password(uint length) : this(length, PasswordOptions.All)
-    {
-    }
-
-    public Password(uint length, PasswordOptions passwordOptions)
+    public Password(uint length = 16u, PasswordOptions passwordOptions = PasswordOptions.All)
     {
         Length = length;
         _passwordOptions = passwordOptions;
@@ -106,7 +98,7 @@ public class Password
         StringBuilder sb = new StringBuilder();
         Random r = new Random();
 
-        for (uint ix = 0u; ix < length; ix++)
+        for (uint iX = 0u; iX < length; iX++)
         {
             char ch = allowedCharactersShuffled[r.Next(allowedCharactersShuffled.Length)];
             sb.Append(ch);
