@@ -90,9 +90,7 @@ public class Password
             return string.Empty;
         }
 
-        // Get the allowed characters to generate the password...
-        AllowedCharacters = GetAllowedCharacters(options);
-        // ...and shuffle the allowed characters string.
+        // Gets the characters to generate the password and mixes them.
         string allowedCharactersShuffled = ShuffleWords(AllowedCharacters);
 
         StringBuilder sb = new StringBuilder();
@@ -136,11 +134,11 @@ public class Password
 
     public void NewPassword() => PlainText = GenerateRandomPassword(Length, _passwordOptions);
 
-    public string AllowedCharacters { get; private set; }
+    public string AllowedCharacters => GetAllowedCharacters(_passwordOptions);
 
-    public uint Length { get; internal set; }
+    public uint Length { get; }
 
-    public string PlainText { get; internal set; }
+    public string PlainText { get; private set; }
 
     public override string ToString() => PlainText;
 }
