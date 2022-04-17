@@ -55,7 +55,7 @@ public class Password
         NewPassword();
     }
 
-    private string GenerateRandomPassword(uint length, PasswordOptions options)
+    private string GenerateRandomPassword(uint length)
     {
         // This is an internal method to shuffle the words inside a text.
         static string ShuffleWords(string text)
@@ -132,7 +132,7 @@ public class Password
         return ac.ToString();
     }
 
-    public void NewPassword() => PlainText = GenerateRandomPassword(Length, _passwordOptions);
+    public void NewPassword() => PlainText = GenerateRandomPassword(Length);
 
     public string AllowedCharacters => GetAllowedCharacters(_passwordOptions);
 
