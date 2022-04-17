@@ -39,13 +39,13 @@ public class Password
     {
         LowercaseLetters = 1,
         UppercaseLetters = 2,
-        AllLetters = (LowercaseLetters | UppercaseLetters),
+        AllLetters = LowercaseLetters | UppercaseLetters,
         Numbers = 4,
         Symbols = 8,
-        AllLettersAndNumbers = (AllLetters | Numbers),
-        AllLettersAndSymbols = (AllLetters | Symbols),
-        NumbersAndSymbols = (Numbers | Symbols),
-        All = (AllLetters | Numbers | Symbols)
+        AllLettersAndNumbers = AllLetters | Numbers,
+        AllLettersAndSymbols = AllLetters | Symbols,
+        NumbersAndSymbols = Numbers | Symbols,
+        All = AllLetters | Numbers | Symbols
     }
 
     public Password(uint length = 16u, PasswordOptions passwordOptions = PasswordOptions.All)
