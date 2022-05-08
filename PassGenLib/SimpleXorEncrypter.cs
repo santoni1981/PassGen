@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 namespace Santoni1981.PassGenLib;
 
 public static class SimpleXorEncrypter
@@ -40,7 +41,7 @@ public static class SimpleXorEncrypter
         {
             for (int idx = 0; idx < len; idx++)
             {
-                int k = (((byte)key[idx_k] + idx) % 255);
+                int k = ((byte)key[idx_k] + idx) % 255;
                 encrypted[idx] = (byte)(plainText[idx] ^ k);
             }
         }
@@ -50,7 +51,7 @@ public static class SimpleXorEncrypter
 
     public static string Decrypt(byte[] encryptedText, string key)
     {
-        if ((encryptedText == null || encryptedText.Length == 0) || string.IsNullOrEmpty(key))
+        if (encryptedText == null || encryptedText.Length == 0 || string.IsNullOrEmpty(key))
         {
             return null;
         }
@@ -63,7 +64,7 @@ public static class SimpleXorEncrypter
         {
             for (int idx = 0; idx < len; idx++)
             {
-                int k = (((byte)key[idx_k] + idx) % 255);
+                int k = ((byte)key[idx_k] + idx) % 255;
                 decrypted[idx] = (char)(encryptedText[idx] ^ k);
             }
         }

@@ -21,13 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Santoni1981.PassGenLib;
 
-namespace Santoni1981.PassGenLibTest;
+namespace PassGenLibTest;
 
 [TestClass]
 public class PasswordTests
@@ -37,7 +38,7 @@ public class PasswordTests
     [TestMethod]
     public void GenerateRandomPasswordsWithAllCharacters()
     {
-        Password password = new Password();
+        Password password = new();
 
         for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {
@@ -49,8 +50,8 @@ public class PasswordTests
     [TestMethod]
     public void GenerateRandomPasswordsWithOnlyNumbers()
     {
-        Password password = new Password(32, Password.PasswordOptions.Numbers);
-        Regex regex = new Regex("[^0-9]");
+        Password password = new(32, Password.PasswordOptions.Numbers);
+        Regex regex = new("[^0-9]");
 
         for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {
@@ -63,8 +64,8 @@ public class PasswordTests
     [TestMethod]
     public void GenerateRandomPasswordsWithOnlyLetters()
     {
-        Password password = new Password(32, Password.PasswordOptions.AllLetters);
-        Regex regex = new Regex("[^A-Za-z]");
+        Password password = new(32, Password.PasswordOptions.AllLetters);
+        Regex regex = new("[^A-Za-z]");
 
         for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {
@@ -77,8 +78,8 @@ public class PasswordTests
     [TestMethod]
     public void GenerateRandomPasswordsWithOnlySymbols()
     {
-        Password password = new Password(32, Password.PasswordOptions.Symbols);
-        Regex regex = new Regex("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_+\\\\/\\.,]");
+        Password password = new(32, Password.PasswordOptions.Symbols);
+        Regex regex = new("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_+\\\\/\\.,]");
 
         for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
         {

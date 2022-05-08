@@ -21,18 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Santoni1981.PassGenLib;
 
-namespace Santoni1981.PassGenLibTest;
+namespace PassGenLibTest;
 
 [TestClass]
 public class SimpleXorEncrypterTest
 {
     private const string Key = "ThisIsTheKeyUsedToEncodeTheString";
+    private readonly byte[] _encryptedMessage = { 47, 13, 5, 6, 4, 64, 77, 57, 0, 2, 29, 22, 82 };
     private readonly string _plainTextMessage = "Hello, World!";
-    private readonly byte[] _encryptedMessage = new byte[] { 47, 13, 5, 6, 4, 64, 77, 57, 0, 2, 29, 22, 82 };
 
     [TestMethod]
     public void EncryptPlainText()

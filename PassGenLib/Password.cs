@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 using System;
 using System.Text;
 
@@ -28,12 +29,6 @@ namespace Santoni1981.PassGenLib;
 
 public class Password
 {
-    private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
-    private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
-    private const string Numbers = "0123456789";
-    private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\.,";
-    private readonly PasswordOptions _passwordOptions;
-
     [Flags]
     public enum PasswordOptions
     {
@@ -48,12 +43,24 @@ public class Password
         All = AllLetters | Numbers | Symbols
     }
 
+    private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
+    private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
+    private const string Numbers = "0123456789";
+    private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\.,";
+    private readonly PasswordOptions _passwordOptions;
+
     public Password(uint length = 16u, PasswordOptions passwordOptions = PasswordOptions.All)
     {
         Length = length;
         _passwordOptions = passwordOptions;
         NewPassword();
     }
+
+    public string AllowedCharacters => GetAllowedCharacters(_passwordOptions);
+
+    public uint Length { get; }
+
+    public string PlainText { get; private set; }
 
     private string GenerateRandomPassword(uint length)
     {
@@ -69,9 +76,9 @@ public class Password
                 return text;
             }
 
-            StringBuilder inputString = new StringBuilder(text);
-            StringBuilder outputString = new StringBuilder();
-            Random r = new Random();
+            StringBuilder inputString = new(text);
+            StringBuilder outputString = new();
+            Random r = new();
 
             while (inputString.Length > 0)
             {
@@ -93,8 +100,8 @@ public class Password
         // Gets the characters to generate the password and mixes them.
         string allowedCharactersShuffled = ShuffleWords(AllowedCharacters);
 
-        StringBuilder sb = new StringBuilder();
-        Random r = new Random();
+        StringBuilder sb = new();
+        Random r = new();
 
         for (uint iX = 0u; iX < length; iX++)
         {
@@ -107,7 +114,7 @@ public class Password
 
     private static string GetAllowedCharacters(PasswordOptions options)
     {
-        StringBuilder ac = new StringBuilder();
+        StringBuilder ac = new();
 
         if ((options & PasswordOptions.LowercaseLetters) == PasswordOptions.LowercaseLetters)
         {
@@ -132,13 +139,13 @@ public class Password
         return ac.ToString();
     }
 
-    public void NewPassword() => PlainText = GenerateRandomPassword(Length);
+    public void NewPassword()
+    {
+        PlainText = GenerateRandomPassword(Length);
+    }
 
-    public string AllowedCharacters => GetAllowedCharacters(_passwordOptions);
-
-    public uint Length { get; }
-
-    public string PlainText { get; private set; }
-
-    public override string ToString() => PlainText;
+    public override string ToString()
+    {
+        return PlainText;
+    }
 }
