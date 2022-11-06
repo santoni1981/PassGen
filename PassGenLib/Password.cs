@@ -103,7 +103,7 @@ public class Password
         StringBuilder sb = new();
         Random r = new();
 
-        for (uint iX = 0u; iX < length; iX++)
+        for (uint i0 = 0u; i0 < length; i0++)
         {
             char ch = allowedCharactersShuffled[r.Next(allowedCharactersShuffled.Length)];
             sb.Append(ch);
@@ -139,13 +139,7 @@ public class Password
         return ac.ToString();
     }
 
-    public void NewPassword()
-    {
-        PlainText = GenerateRandomPassword(Length);
-    }
+    public void NewPassword() => PlainText = GenerateRandomPassword(Length);
 
-    public override string ToString()
-    {
-        return PlainText;
-    }
+    public override string ToString() => PlainText;
 }

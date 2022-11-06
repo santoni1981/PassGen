@@ -40,7 +40,7 @@ public class PasswordTests
     {
         Password password = new();
 
-        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+        for (uint ix = 0, t0 = TotalNumberOfPasswordsForTest; ix < t0; ix++)
         {
             password.NewPassword();
             Assert.IsTrue(password.PlainText.Length.Equals(16));
@@ -53,7 +53,7 @@ public class PasswordTests
         Password password = new(32, Password.PasswordOptions.Numbers);
         Regex regex = new("[^0-9]");
 
-        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+        for (uint ix = 0, t0 = TotalNumberOfPasswordsForTest; ix < t0; ix++)
         {
             password.NewPassword();
             Assert.IsTrue(password.PlainText.Length.Equals(32));
@@ -67,7 +67,7 @@ public class PasswordTests
         Password password = new(32, Password.PasswordOptions.AllLetters);
         Regex regex = new("[^A-Za-z]");
 
-        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+        for (uint ix = 0, t0 = TotalNumberOfPasswordsForTest; ix < t0; ix++)
         {
             password.NewPassword();
             Assert.IsTrue(password.PlainText.Length.Equals(32));
@@ -81,7 +81,7 @@ public class PasswordTests
         Password password = new(32, Password.PasswordOptions.Symbols);
         Regex regex = new("[^\\!£\\$%&#@\\<\\(\\[\\{\\|\\}\\]\\)\\>\\?\\^\\*\\';:\\-_+\\\\/\\.,]");
 
-        for (int ix = 0; ix < TotalNumberOfPasswordsForTest; ix++)
+        for (uint ix = 0, t0 = TotalNumberOfPasswordsForTest; ix < t0; ix++)
         {
             password.NewPassword();
             Assert.IsTrue(password.PlainText.Length.Equals(32));

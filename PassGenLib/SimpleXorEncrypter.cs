@@ -34,15 +34,14 @@ public static class SimpleXorEncrypter
         }
 
         int len = plainText.Length;
-        int len_k = key.Length;
         byte[] encrypted = new byte[len];
 
-        for (int idx_k = 0; idx_k < len_k; idx_k++)
+        for (int i0 = 0, t0 = key.Length; i0 < t0; i0++)
         {
-            for (int idx = 0; idx < len; idx++)
+            for (int i1 = 0; i1 < len; i1++)
             {
-                int k = ((byte)key[idx_k] + idx) % 255;
-                encrypted[idx] = (byte)(plainText[idx] ^ k);
+                int k = ((byte)key[i0] + i1) % 255;
+                encrypted[i1] = (byte)(plainText[i1] ^ k);
             }
         }
 
@@ -57,15 +56,14 @@ public static class SimpleXorEncrypter
         }
 
         int len = encryptedText.Length;
-        int len_k = key.Length;
         char[] decrypted = new char[len];
 
-        for (int idx_k = 0; idx_k < len_k; idx_k++)
+        for (int i0 = 0, t0 = key.Length; i0 < t0; i0++)
         {
-            for (int idx = 0; idx < len; idx++)
+            for (int i1 = 0; i1 < len; i1++)
             {
-                int k = ((byte)key[idx_k] + idx) % 255;
-                decrypted[idx] = (char)(encryptedText[idx] ^ k);
+                int k = ((byte)key[i0] + i1) % 255;
+                decrypted[i1] = (char)(encryptedText[i1] ^ k);
             }
         }
 
