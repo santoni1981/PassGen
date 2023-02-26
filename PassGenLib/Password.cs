@@ -27,8 +27,14 @@ using System.Text;
 
 namespace Santoni1981.PassGenLib;
 
-public class Password
+public sealed class Password
 {
+    private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
+    private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
+    private const string Numbers = "0123456789";
+    private const string Symbols = @"!£$%&#@<([{|}])>?^*';:-_+/\.,";
+    private readonly PasswordOptions _passwordOptions;
+
     [Flags]
     public enum PasswordOptions
     {
@@ -42,25 +48,6 @@ public class Password
         NumbersAndSymbols = Numbers | Symbols,
         All = AllLetters | Numbers | Symbols
     }
-
-    private const string LowercaseLetters = "abcdefghikjlmnopqrstuvwxyz";
-    private const string UppercaseLetters = "ABCDEFGHIKJLMNOPQRSTUVWXYZ";
-    private const string Numbers = "0123456789";
-    private const string Symbols = "!£$%&#@<([{|}])>?^*';:-_+/\\.,";
-    private readonly PasswordOptions _passwordOptions;
-
-    public Password(uint length = 16u, PasswordOptions passwordOptions = PasswordOptions.All)
-    {
-        Length = length;
-        _passwordOptions = passwordOptions;
-        NewPassword();
-    }
-
-    public string AllowedCharacters => GetAllowedCharacters(_passwordOptions);
-
-    public uint Length { get; }
-
-    public string PlainText { get; private set; }
 
     private string GenerateRandomPassword(uint length)
     {
@@ -138,6 +125,19 @@ public class Password
 
         return ac.ToString();
     }
+
+    public Password(uint length = 16u, PasswordOptions passwordOptions = PasswordOptions.All)
+    {
+        Length = length;
+        _passwordOptions = passwordOptions;
+        NewPassword();
+    }
+
+    public string AllowedCharacters => GetAllowedCharacters(_passwordOptions);
+
+    public uint Length { get; }
+
+    public string PlainText { get; private set; }
 
     public void NewPassword() => PlainText = GenerateRandomPassword(Length);
 
